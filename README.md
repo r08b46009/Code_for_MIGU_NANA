@@ -1,4 +1,5 @@
 # Installation
+This is the code for NaNa and MiGu: Semantic Data Augmentation Techniques to Enhance Protein Classification in Graph Neural Networks
 
 Required environment: Python 3.8, PyTorch 2.0.1
 

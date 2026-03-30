@@ -29,19 +29,19 @@ The experiments are based on the **EC** and **SCOPe** datasets.
 
 ## Repository Structure
 
-- `hydrogen_bond.py`  
+- `build_protein_graph_features.py`  
   Generates structural and biophysical features from protein structures and constructs graph-formatted datasets for downstream learning.
 
-- `graph_for_MIGU_NANA.py`  
+- `train_migu_nana.py`  
   Main training and evaluation pipeline for protein classification experiments, including augmented (`mine`) and baseline (`their`) settings.
 
-- `backbone_GIN_backup.py`  
+- `protein_gnn_models.py`  
   Implementation of the graph neural network backbone with geometric and structural feature integration.
 
-- `environment_pygdemo.yml`  
+- `environment_training.yml`  
   Conda environment for model training and graph learning experiments.
 
-- `environment_bio.yml`  
+- `environment_features.yml`  
   Conda environment for structure processing and biophysical feature generation.
 
 ---

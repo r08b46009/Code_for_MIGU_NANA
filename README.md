@@ -27,7 +27,7 @@ The preprocessed EC and SCOPe datasets can be provided upon request due to their
 Please run the following command
 
 ```
-python hydrogen_bond.py
+python build_protein_graph_features.py
 ```
 
 ## Train the Model
@@ -55,5 +55,5 @@ python hydrogen_bond.py
 For example, to train a GCN model with augmented EC dataset and residual learning framework, you can use the following command
 
 ```
-CUDA_LAUNCH_BLOCKING=1 python graph_hao_retry.py --training_title 226_MPNN_true_edge --epochs 4000 --lr 0.0005 --optimizer adam --dim_h 128 --batch_size 50 --model GIN_Attribute --num_workers 8 --dataset_path /home/ysl_0128/DIG/examples/threedgraph/dataset --dataset EC --edge true --eval_batch_size 20 --version mine --type GCN --bond false
+CUDA_LAUNCH_BLOCKING=1 python train_migu_nana.py --training_title 226_MPNN_true_edge --epochs 4000 --lr 0.0005 --optimizer adam --dim_h 128 --batch_size 50 --model GIN_Attribute --num_workers 8 --dataset_path /home/ysl_0128/DIG/examples/threedgraph/dataset --dataset EC --edge true --eval_batch_size 20 --version mine --type GCN --bond false
 ```

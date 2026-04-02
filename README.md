@@ -1,151 +1,59 @@
-# MiGu and NaNa: Semantic Data Augmentation for Protein Classification in Graph Neural Networks
 
-This repository contains the implementation of **MiGu** and **NaNa**, two semantic data augmentation strategies for **protein classification with graph neural networks (GNNs)**.
+# Installation
+This repository contains the implementation of **MiGu** and **NaNa**, two semantic data augmentation techniques designed to improve **protein classification with graph neural networks**.
 
-This project is part of my **first-author research work**, and I was responsible for the **full pipeline**, including:
-- model design and implementation
-- structural and biophysical feature engineering
-- semantic augmentation design
-- graph dataset construction
-- experiment setup and evaluation
+Required environment: Python 3.8, PyTorch 2.0.1
 
----
+For MIGU and NANA algorithm: 
 
-## Overview
-
-Protein classification with graph neural networks can be limited by incomplete structural representation and insufficient training diversity.  
-To address this, this project introduces semantic augmentation strategies that enrich protein graph representations with additional structural and biophysical information.
-
-This repository includes:
-- structure-based feature extraction
-- graph construction from protein structural data
-- semantic augmentation methods
-- graph neural network model implementation
-- training and evaluation pipeline for protein classification
-
-The experiments are based on the **EC** and **SCOPe** datasets.
-
----
-
-## Repository Structure
-
-- `build_protein_graph_features.py`  
-  Generates structural and biophysical features from protein structures and constructs graph-formatted datasets for downstream learning.
-
-- `train_migu_nana.py`  
-  Main training and evaluation pipeline for protein classification experiments, including augmented (`mine`) and baseline (`their`) settings.
-
-- `protein_gnn_models.py`  
-  Implementation of the graph neural network backbone with geometric and structural feature integration.
-
-- `environment_training.yml`  
-  Conda environment for model training and graph learning experiments.
-
-- `environment_features.yml`  
-  Conda environment for structure processing and biophysical feature generation.
-
----
-
-## Datasets
-
-This project uses the **EC** and **SCOPe** protein classification datasets.
-
-The datasets are **not included in this repository**, because they are obtained from external sources and are not redistributed here.  
-Please download them from their original sources and place them in the appropriate local directory before running the code.
-
-You may then specify the dataset location using the `--dataset_path` argument in the training script.
-
----
-
-## Environment Setup
-
-### Training environment
-```bash
-conda env update --file environment_pygdemo.yml
-conda activate MIGU
+```
+conda activate MIGU conda env update --file environment_pygdemo.yml
 ```
 
-### Feature generation environment
-```bash
-conda env update --file environment_bio.yml
-conda activate hydrogen_bond
+For generating biophysical & other features: 
+
+```
+conda activate hydrogen_bond conda env update --file environment_bio.yml
 ```
 
----
+# Dataset Preparation
 
-## Workflow
+The preprocessed EC and SCOPe datasets can be provided upon request due to their size.
 
-### Step 1: Generate structural and biophysical features
-```bash
+# Run Augmentation
+
+## Generate Augmented Dataset
+
+Please run the following command
+
+```
 python hydrogen_bond.py
 ```
 
-### Step 2: Train the model
+## Train the Model
 
-Example command:
+### Command Line Options
 
-```bash
-CUDA_LAUNCH_BLOCKING=1 python graph_for_MIGU_NANA.py \
-  --training_title 226_MPNN_true_edge \
-  --epochs 4000 \
-  --lr 0.0005 \
-  --optimizer adam \
-  --dim_h 128 \
-  --batch_size 50 \
-  --model GIN_Attribute \
-  --num_workers 8 \
-  --dataset_path /path/to/dataset \
-  --dataset EC \
-  --edge true \
-  --eval_batch_size 20 \
-  --version mine \
-  --type GCN \
-  --bond false
+- ``--training_title``:  Name of the training, type: string
+- ``--epochs``: Training epochs, type: float 
+- ``--lr``: Learning rate, type: Float
+- ``--optimizer``: Name of the optimizers, type: string, options: ``[adam]``
+- ``--dim_h``: the width of the layers, type: integer
+- ``--batch_size``: Training batch size, type: 
+- ``--model``: Model types, type: string, options: ``[GIN_Attribute]``
+- ``--num_workers``: Number of dataloader workers, type: integer
+- ``--dataset_path``: The path of loaded dataset, type: string
+- ``--dataset``: The used dataset for the training, type: string
+- ``--edge``: Whether to use co-embedding residual learning, type: boolean
+- ``--eval_batch_size``: The batch size in the evaluation stage, type: integer
+- ``--version``: Use augmented or non-augmented data, "mine" means augmented data, "their" means non-augmented data, type: string, options: ``[their, mine]``
+- ``--type``: The types of layers, type: string, options: ``[GCN, GIN, MPNN]``
+- ``--bond``: Use edge attributes or not; if the flag is true, it would represent the MiGu augmentation; otherwise it is NaNa augmentation, type: boolean
+
+### Run with the Following Command
+
+For example, to train a GCN model with augmented EC dataset and residual learning framework, you can use the following command
+
 ```
-
----
-
-## Command Line Arguments
-
-- `--training_title`: experiment name
-- `--epochs`: number of training epochs
-- `--lr`: learning rate
-- `--optimizer`: optimizer type
-- `--dim_h`: hidden dimension size
-- `--batch_size`: training batch size
-- `--model`: model type
-- `--num_workers`: number of dataloader workers
-- `--dataset_path`: path to dataset directory
-- `--dataset`: dataset name
-- `--edge`: whether to use co-embedding residual learning
-- `--eval_batch_size`: evaluation batch size
-- `--version`: `mine` for augmented setting, `their` for baseline setting
-- `--type`: layer type (`GCN`, `GIN`, `MPNN`)
-- `--bond`: whether to use edge attributes; if true, MiGu augmentation is used, otherwise NaNa augmentation is used
-
----
-
-## Notes
-
-- `mine` indicates the augmented setting.
-- `their` indicates the original or non-augmented baseline setting.
-- Some paths in the current scripts are hard-coded and may need to be adapted to your local directory structure before running.
-- This repository focuses on the implementation pipeline; dataset redistribution is not included.
-
----
-
-## Contribution
-
-This repository corresponds to my **first-author work**, and I developed the project end-to-end, including:
-- structural feature extraction
-- biophysical feature generation
-- graph construction
-- augmentation framework design
-- model implementation
-- experiment execution and evaluation
-
----
-
-## Citation
-
-If you use this repository, please cite the associated paper once available.
+CUDA_LAUNCH_BLOCKING=1 python graph_hao_retry.py --training_title 226_MPNN_true_edge --epochs 4000 --lr 0.0005 --optimizer adam --dim_h 128 --batch_size 50 --model GIN_Attribute --num_workers 8 --dataset_path /home/ysl_0128/DIG/examples/threedgraph/dataset --dataset EC --edge true --eval_batch_size 20 --version mine --type GCN --bond false
+```

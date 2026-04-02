@@ -1,4 +1,4 @@
-name: pygdemo
+name: migu-train
 channels:
   - defaults
   - bioconda

@@ -57,3 +57,7 @@ For example, to train a GCN model with augmented EC dataset and residual learnin
 ```
 CUDA_LAUNCH_BLOCKING=1 python train_migu_nana.py --training_title 226_MPNN_true_edge --epochs 4000 --lr 0.0005 --optimizer adam --dim_h 128 --batch_size 50 --model GIN_Attribute --num_workers 8 --dataset_path /home/ysl_0128/DIG/examples/threedgraph/dataset --dataset EC --edge true --eval_batch_size 20 --version mine --type GCN --bond false
 ```
+
+## 📚 Related Publications
+
+* **NaNa and MiGu: Semantic Data Augmentation Techniques to Enhance Protein Classification in Graph Neural Networks** — arXiv
